@@ -9,7 +9,7 @@ Library that we use to concat class names in our React.js applications.
 ## Usage
 	
 	//first require the package
-	var concat = require('../src/index.js');
+	var concat = require('concat-js');
 	
 	//just use it as a function
 	concat('hello', null, 'world');
