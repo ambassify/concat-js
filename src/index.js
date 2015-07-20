@@ -4,13 +4,14 @@
  * We will also remove double classes
  * @return {string}
  */
+ /*jslint node: true */
 "use strict";
 
 var _ = require('lodash');
 
-function c() {
+function C() {
+    var classes = [];
 
-    this.classes = [];
     for( var i = 0; i < arguments.length; i++)
     {
         if(
@@ -20,13 +21,13 @@ function c() {
         )
         continue;
 
-        this.classes = this.classes.concat(arguments[i].toString().split(' '));
+        classes = classes.concat(arguments[i].toString().split(' '));
     }
 
-    this.classes = _.uniq( this.classes );
-    this.classes = _.without( this.classes, "false" );
-    this.classes =  this.classes.join(' ');
+    classes = _.uniq( classes );
+    classes = _.without( classes, "false" );
+
+    return classes.join(' ');
 }
 
-
-module.exports = c;
+module.exports = C;
