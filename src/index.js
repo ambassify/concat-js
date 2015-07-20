@@ -9,8 +9,8 @@
 var _ = require('lodash');
 
 function c() {
-    classes = [];
 
+    this.classes = [];
     for( var i = 0; i < arguments.length; i++)
     {
         if(
@@ -20,13 +20,13 @@ function c() {
         )
         continue;
 
-        classes = classes.concat(arguments[i].toString().split(' '));
+        this.classes = this.classes.concat(arguments[i].toString().split(' '));
     }
 
-    classes = _.uniq( classes );
-    classes = _.without( classes, "false" );
-
-    return classes.join(' ');
+    this.classes = _.uniq( this.classes );
+    this.classes = _.without( this.classes, "false" );
+    this.classes =  this.classes.join(' ');
 }
+
 
 module.exports = c;
