@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/bubobox/concat-js/issues"
   },
-  "homepage": "https://github.com/bubobox/concat-js"
+  "homepage": "https://github.com/bubobox/concat-js",
+  "devDependencies": {
+    "lodash": "^3.3.1"
+  }
 }
