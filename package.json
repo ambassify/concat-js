@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/bubobox/concat-js",
   "devDependencies": {
-    "lodash": "^3.3.1"
+    "lodash": "^3.3.1",
+    "sinon": "^1.12.1"
   }
 }
