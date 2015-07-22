@@ -4,8 +4,7 @@
 
 var _ = require('lodash'),
 	assert = require('assert'),
-	Concat = require('../src/index.js'),
-	sinon = require('sinon');
+	Concat = require('../src/index.js');
 
 describe('Concat::C', function( done ){
 
