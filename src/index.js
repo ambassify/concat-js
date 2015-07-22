@@ -22,22 +22,31 @@
 })('C', this, function (_) { // jshint ignore:line
 
     return function C() {
-        var classes = [];
+        var classes = _.reduce(arguments, function (result, c) {
 
-        for( var i = 0; i < arguments.length; i++)
-        {
-            if(
-                arguments[i] === undefined ||
-                arguments[i] === null ||
-                arguments[i] === "false"
-            )
-            continue;
+            // Detect objects with their own toString implementation
+            if (
+                c && typeof c === 'object' && 'toString' in c &&
+                typeof c.toString === 'function' &&
+                c.toString !== Object.prototype.toString
+            ) {
+                c = c.toString();
+            }
 
-            classes = classes.concat(arguments[i].toString().split(' '));
-        }
+            // Only allow strings from here on out
+            if (typeof c !== 'string') {
+                return result;
+            }
+
+            // Split on spaces and ignore 'false' strings
+            var expanded = _.filter(c.split(' '), function (clss) {
+                return clss.length > 0 && clss !== 'false';
+            });
+
+            return result.concat(expanded);
+        }, []);
 
         classes = _.uniq( classes );
-        classes = _.without( classes, "false" );
 
         return classes.join(' ');
     };
