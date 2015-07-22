@@ -4,30 +4,41 @@
  * We will also remove double classes
  * @return {string}
  */
- /*jslint node: true */
+
+/*jslint node: true */
+/* global define */
 "use strict";
 
-var _ = require('lodash');
-
-function C() {
-    var classes = [];
-
-    for( var i = 0; i < arguments.length; i++)
-    {
-        if(
-            arguments[i] === undefined ||
-            arguments[i] === null ||
-            arguments[i] === "false"
-        )
-        continue;
-
-        classes = classes.concat(arguments[i].toString().split(' '));
+;(function (name, context, definition) {
+    if (typeof module !== 'undefined' && module.exports) { module.exports = definition( require('lodash') ); }
+    else if (typeof define === 'function' && define.amd) { define(['lodash'], definition); }
+    else if (typeof exports === 'object' ) { exports = definition( require('lodash') ); }
+    else {
+        if (typeof context._ === 'undefined') {
+            throw "C requires lodash (_) to be present on the root object (usually window).";
+        }
+        context[name] = definition(context._);
     }
+})('C', this, function (_) { // jshint ignore:line
 
-    classes = _.uniq( classes );
-    classes = _.without( classes, "false" );
+    return function C() {
+        var classes = [];
 
-    return classes.join(' ');
-}
+        for( var i = 0; i < arguments.length; i++)
+        {
+            if(
+                arguments[i] === undefined ||
+                arguments[i] === null ||
+                arguments[i] === "false"
+            )
+            continue;
 
-module.exports = C;
+            classes = classes.concat(arguments[i].toString().split(' '));
+        }
+
+        classes = _.uniq( classes );
+        classes = _.without( classes, "false" );
+
+        return classes.join(' ');
+    };
+});
