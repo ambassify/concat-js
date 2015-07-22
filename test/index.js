@@ -13,4 +13,9 @@ describe('Concat::C', function( done ){
         assert.equal(result, 'hello world');
     });
 
+    it( 'Concat-JS should remove duplicate values', function() {
+        var result = Concat('hello', 'hello');
+        assert.equal(result, 'hello');
+    });
+
 });
