@@ -4,9 +4,6 @@
  * We will also remove double classes
  * @return {string}
  */
-
-/*jslint node: true */
-/* global define */
 "use strict";
 
 ;(function (name, context, definition) {
@@ -19,7 +16,7 @@
         }
         context[name] = definition(context._);
     }
-})('C', this, function (_) { // jshint ignore:line
+})('C', this, function (_) {
 
     return function C() {
         var classes = _.reduce(arguments, function (result, c) {
