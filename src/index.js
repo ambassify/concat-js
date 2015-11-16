@@ -4,9 +4,9 @@
  * We will also remove double classes
  * @return {string}
  */
-"use strict";
+'use strict';
 
-;(function (name, context, definition) {
+(function (name, context, definition) {
     if (typeof module !== 'undefined' && module.exports) { module.exports = definition(); }
     else if (typeof define === 'function' && define.amd) { define([], definition); }
     else if (typeof exports === 'object' ) { exports = definition(); }

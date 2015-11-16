@@ -1,12 +1,10 @@
-"use strict";
+'use strict';
 
-var _ = require('lodash'),
-	assert = require('assert'),
-	Concat = require('../src/index.js');
+var assert = require('assert'),
+    Concat = require('../src/index.js');
 
-describe('Concat::C', function( done ){
-
-	it( 'Concat-JS should concat the classnames and remove null values', function() {
+describe('Concat::C', function(){
+    it( 'Concat-JS should concat the classnames and remove null values', function() {
         var result = Concat('hello', null, 'world');
         assert.equal(result, 'hello world');
     });
