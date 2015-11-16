@@ -18,7 +18,7 @@ describe('Concat::C', function( done ){
 
     it( 'Concat-JS should remove all kinds of weird values', function() {
         var result = Concat('hello', '', false, null, {}, undefined, 'false', true, 10, [], { toString: 'test' });
-        assert.equal(result, 'hello');
+        assert.equal(result, 'hello false');
     });
 
     it( 'Concat-JS should handle objects with toString method', function() {

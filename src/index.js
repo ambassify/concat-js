@@ -7,43 +7,51 @@
 "use strict";
 
 ;(function (name, context, definition) {
-    if (typeof module !== 'undefined' && module.exports) { module.exports = definition( require('lodash') ); }
-    else if (typeof define === 'function' && define.amd) { define(['lodash'], definition); }
-    else if (typeof exports === 'object' ) { exports = definition( require('lodash') ); }
-    else {
-        if (typeof context._ === 'undefined') {
-            throw "C requires lodash (_) to be present on the root object (usually window).";
+    if (typeof module !== 'undefined' && module.exports) { module.exports = definition(); }
+    else if (typeof define === 'function' && define.amd) { define([], definition); }
+    else if (typeof exports === 'object' ) { exports = definition(); }
+    else { context[name] = definition(); }
+})('C', this, function () {
+
+    function uniq(values, output) {
+        var idx = values.length;
+        var v = null;
+
+        output = output || [];
+
+        while( idx-- ) {
+            v = values[idx];
+
+            if( output.indexOf(v) < 0 )
+                output.push(values[idx]);
         }
-        context[name] = definition(context._);
+
+        return output;
     }
-})('C', this, function (_) {
 
     return function C() {
-        var classes = _.reduce(arguments, function (result, c) {
+        var idx = arguments.length;
+        var classes = [];
+        var c = null;
 
-            // Detect objects with their own toString implementation
-            if (
-                c && typeof c === 'object' && 'toString' in c &&
-                typeof c.toString === 'function' &&
-                c.toString !== Object.prototype.toString
-            ) {
+        while( idx-- ) {
+            c = arguments[idx];
+
+            if( c && typeof c === 'object' && typeof c.toString === 'function' &&
+                c.toString !== Object.prototype.toString )
                 c = c.toString();
-            }
 
-            // Only allow strings from here on out
-            if (typeof c !== 'string') {
-                return result;
-            }
+            if( typeof c !== 'string' )
+                continue;
 
-            // Split on spaces and ignore 'false' strings
-            var expanded = _.filter(c.split(' '), function (clss) {
-                return clss.length > 0 && clss !== 'false';
-            });
+            c = c.replace(/\s\s+/, ' ').split(' ');
+            if( c.length == 1 && c[0].length == 0 )
+                continue;
 
-            return result.concat(expanded);
-        }, []);
+            classes = classes.concat(c);
+        }
 
-        classes = _.uniq( classes );
+        classes = uniq(classes);
 
         return classes.join(' ');
     };
